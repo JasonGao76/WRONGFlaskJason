@@ -6,6 +6,8 @@ from auth_middleware import token_required
 
 from model.CurrentChars import CurrentChar
 
+import numpy as np
+
 currentchar_api = Blueprint('currentchar_api', __name__,
                    url_prefix='/api/currentchar')
 
@@ -71,6 +73,60 @@ class CurrentCharAPI:
             CurrentCharacter[0].update(classname,health,attack,range==True,movement==True) # update info
             return f"{CurrentCharacter[0].read()} Updated"
     
+    # class _ML(Resource):
+    #     def probability():
+    #         try:
+    #             body = request.get_json()
+    #             if not body: return {
+    #                 "message": "Please provide user details",
+    #                 "data": None,
+    #                 "error": "Bad request"
+    #             }, 400
+    #         except Exception as e:
+    #             return {
+    #                 "message": "Something went wrong!",
+    #                 "error": str(e),
+    #                 "data": None
+    #             }, 500
+                        
+    #         # Machine Learning Titanic model to predict probability of living
+    #         # Define a new passenger
+    #         passenger = pd.DataFrame({ ## see above for what each one is
+    #             'name': ['Jason Gao'],
+    #             'pclass': [1], 
+    #             'sex': ['male'],
+    #             'age': [18],
+    #             'sibsp': [1],
+    #             'parch': [2],
+    #             'fare': [36.00], # median fare (16) picked assuming it is 2nd class
+    #             'embarked': ['S'], # majority of passengers embarked in Southampton
+    #             'alone': [False] # travelling with family
+    #         })
+
+    #         display(passenger)
+    #         new_passenger = passenger.copy()
+
+    #         # Preprocess the new passenger data
+    #         new_passenger['sex'] = new_passenger['sex'].apply(lambda x: 1 if x == 'male' else 0)
+    #         new_passenger['alone'] = new_passenger['alone'].apply(lambda x: 1 if x == True else 0)
+
+    #         # Encode 'embarked' variable
+    #         onehot = enc.transform(new_passenger[['embarked']]).toarray()
+    #         cols = ['embarked_' + val for val in enc.categories_[0]]
+    #         new_passenger[cols] = pd.DataFrame(onehot, index=new_passenger.index)
+    #         new_passenger.drop(['name'], axis=1, inplace=True)
+    #         new_passenger.drop(['embarked'], axis=1, inplace=True)
+
+    #         # Predict the survival probability for the new passenger
+    #         _, alive_proba = np.squeeze(logreg.predict_proba(new_passenger))
+
+    #         # Print the survival probability
+    #         print('Survival probability: {:.2%}'.format(alive_proba))
+
+    # building RESTapi endpoint
+    api.add_resource(_CRUD, '/')
+    # api.add_resource(_ML, '/machinelearning')
+    
     # class _Security(Resource):
     #     def post(self):
     #         try:
@@ -127,7 +183,3 @@ class CurrentCharAPI:
     #             }, 500
 
             
-    # building RESTapi endpoint
-    api.add_resource(_CRUD, '/')
-    # api.add_resource(_Security, '/authenticate')
-    
