@@ -210,7 +210,8 @@ def initCharClasses():
         u2 = Classes(classname='Mage', health=1, attack=1, range=True, movement=False )
         u3 = Classes(classname='Rogue', health=1, attack=1, range=False, movement=True )
         u4 = Classes(classname='Shield Bearer', health=3, attack=1, range=False, movement=False )
-        CharClasses = [u1, u2, u3, u4]
+        u5 = Classes(classname='Grand Wizard', health=10, attack=10, range=True, movement=True)
+        CharClasses = [u1, u2, u3, u4, u5]
 
         """Builds sample user/note(s) data"""
         for CharClass in CharClasses:
