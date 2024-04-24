@@ -14,7 +14,7 @@ class ML(db.Model):
     _port = Column(String, nullable=False)
     _alone = Column(String, nullable=False)
 
-    def __init__(self, socialclass, age, sex, siblings, family, fare, port, alone, chance):
+    def __init__(self, socialclass, age, sex, siblings, family, fare, port, alone):
         self._socialclass = socialclass
         self._age = age
         self._sex = sex
