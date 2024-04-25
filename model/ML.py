@@ -4,6 +4,7 @@ from __init__ import db
 class ML(db.Model):
     __tablename__ = "ml"
 
+    # define the schema with the inputs to feed into the machine learning (ml)
     id = Column(Integer, primary_key=True)
     _socialclass = Column(Integer, nullable=False)
     _age = Column(Integer, nullable=False)
@@ -14,6 +15,7 @@ class ML(db.Model):
     _port = Column(String, nullable=False)
     _alone = Column(String, nullable=False)
 
+    # initializes the instance variables within object (self)
     def __init__(self, socialclass, age, sex, siblings, family, fare, port, alone):
         self._socialclass = socialclass
         self._age = age
@@ -27,6 +29,7 @@ class ML(db.Model):
     def __repr__(self):
         return "id='%s', socialclass='%d', age='%d', sex='%s', siblings='%d', family='%d', fare='%d', port='%s', alone='%s'" % (self.id, self.socialclass, self.age, self.sex, self.siblings, self.family, self.fare, self.port, self.alone)
 
+    # property and setter for all arguments
     @property
     def socialclass(self):
         return self._socialclass
@@ -95,4 +98,4 @@ class ML(db.Model):
         return {"id": self.id}
     
 def init_ml():
-    db.session.commit()
+    db.session.commit() # commit database

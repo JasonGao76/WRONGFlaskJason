@@ -1,4 +1,4 @@
-""" database dependencies to support sqliteDB examples """
+# database dependencies to support sqliteDB
 from random import randrange
 from datetime import date
 import os, base64
@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Classes(db.Model):
-    __tablename__ = 'CharClasses'  # table name is plural, class name is singular
+    __tablename__ = 'CharClasses'
 
     # define the schema with the different stats
     id = db.Column(db.Integer, primary_key=True)
@@ -19,83 +19,68 @@ class Classes(db.Model):
     _range = db.Column(db.Boolean, default=False, nullable=False)
     _movement = db.Column(db.Boolean, default=False, nullable=False)
 
-    # Defines a relationship between User record and Notes table, one-to-many (one user to many notes)
-    # posts = db.relationship("Post", cascade='all, delete', backref='CharClasses', lazy=True)
-
-    # constructor of a User object, initializes the instance variables within object (self)
+    # initializes the instance variables within object self
     def __init__(self, classname, health, attack, range, movement):
-        self._classname = classname    # variables with self prefix become part of the object, 
+        self._classname = classname # variables with self prefix become part of the object 
         self._health = health
         self._attack = attack
         self._range = range
         self._movement = movement
 
-    # a name getter method, extracts name from object
+    # a name getter method, extracts classname from object
     @property
     def classname(self):
         return self._classname
     
-    # a setter function, allows name to be updated after initial object creation
+    # a setter function, allows classname to be updated after initial object creation
     @classname.setter
     def classname(self, classname):
         self._classname = classname
     
-    # a getter method, extracts email from object
+    # repeat for all arguments
     @property
     def health(self):
         return self._health
-    
-    # a setter function, allows name to be updated after initial object creation
+
     @health.setter
     def health(self, health):
         self._health = health
         
-    # # check if uid parameter matches user id in object, return boolean
-    # def is_uid(self, uid):
-    #     return self._uid == uid
-
-    # a getter method, extracts email from object
     @property
     def attack(self):
         return self._attack
     
-    # a setter function, allows name to be updated after initial object creation
     @attack.setter
     def attack(self, attack):
         self._attack = attack
     
-    # a getter method, extracts email from object
     @property
     def range(self):
         return self._range
     
-    # a setter function, allows name to be updated after initial object creation
     @range.setter
     def range(self, range):
         self._range = range
 
-    # a getter method, extracts email from object
     @property
     def movement(self):
         return self._movement
     
-    # a setter function, allows name to be updated after initial object creation
     @movement.setter
     def movement(self, movement):
         self._movement = movement
     
-    # output content using str(object) in human readable form, uses getter
-    # output content using json dumps, this is ready for API response
+    # output content using str(object) and json dumps so ready for API response
     def __str__(self):
         return json.dumps(self.read())
 
-    # CRUD create/add a new record to the table
-    # returns self or None on error
+    # CRUD create adds a new record to the table
+    # returns self or None if error
     def create(self):
         try:
-            # creates a person object from User(db.Model) class, passes initializers
-            db.session.add(self)  # add prepares to persist person object to Users table
-            db.session.commit()  # SqlAlchemy "unit of work pattern" requires a manual commit
+            # creates an object
+            db.session.add(self) # add prepares to persist object to datatable
+            db.session.commit() # manual commit
             return self
         except IntegrityError:
             db.session.remove()
@@ -111,39 +96,23 @@ class Classes(db.Model):
             "attack": self.attack,
             "range": self.range,
             "movement": self.movement
-            # "posts": [post.read() for post in self.posts]
         }
 
-    # # CRUD update: updates user name, password, phone
-    # # returns self
-    # def update(self, name="", uid="", password=""):
-    #     """only updates values with length"""
-    #     if len(name) > 0:
-    #         self.name = name
-    #     if len(uid) > 0:
-    #         self.uid = uid
-    #     if len(password) > 0:
-    #         self.set_password(password)
-    #     db.session.commit()
-    #     return self
+    # CRUD update not used
 
-    # CRUD delete: remove self
-    # None
+    # CRUD delete removes self
+    # returns None
     def delete(self):
         db.session.delete(self)
         db.session.commit()
         return None
 
-
-"""Database Creation and Testing """
-
-
-# Builds working data for testing
+# make database and datatable
+# builds data
 def initCharClasses():
     with app.app_context():
-        """Create database and tables"""
         db.create_all()
-        """Tester data for table"""
+        # preset class data
         u1 = Classes(classname='Knight', health=2, attack=2, range=False, movement=False)
         u2 = Classes(classname='Mage', health=1, attack=1, range=True, movement=False)
         u3 = Classes(classname='Rogue', health=1, attack=1, range=False, movement=True)
@@ -151,17 +120,12 @@ def initCharClasses():
         u5 = Classes(classname='Grand Wizard', health=10, attack=10, range=True, movement=True)
         CharClasses = [u1, u2, u3, u4, u5]
 
-        """Builds sample user/note(s) data"""
+        # builds classes
         for CharClass in CharClasses:
             try:
-                # '''add a few 1 to 4 notes per user'''
-                # for num in range(randrange(1, 4)):
-                #     note = "#### " + CharClass.classname + " note " + str(num) + ". \n Generated by test data."
-                #     CharClass.posts.append(Post(id=CharClass.id, note=note, image='ncs_logo.png'))
-                '''add user/post data to table'''
                 CharClass.create()
             except IntegrityError:
-                '''fails with bad or duplicate data'''
+                # fails if bad or duplicate data
                 db.session.remove()
-                print(f"Records exist, duplicate email, or error: {CharClass.classname}")
+                print(f"Records exist, duplicate or error: {CharClass.classname}")
             
