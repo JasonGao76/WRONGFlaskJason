@@ -12,6 +12,7 @@ classes_api = Blueprint('classes_api', __name__,
 # API docs https://flask-restful.readthedocs.io/en/latest/api.html
 api = Api(classes_api)
 
+# this code was written by a collaborator
 class ClassesAPI:
     class _CRUD(Resource):  # define GET request
         def get(self): # read Method

@@ -14,8 +14,8 @@ from sklearn.preprocessing import OneHotEncoder
 ml_bp = Blueprint("ml", __name__, url_prefix = '/api/ml')
 ml_api = Api(ml_bp)
 
+# the below code is a combination of teacher code (from a lesson on machine learning using the Titanic dataset) and our adaption of that code to use in this project
 class MLAPI(Resource):
-    # the below code is a combination of teacher code (from a lesson on machine learning using the Titanic dataset) and our adaption of that code to use in this project
     def post(self):
         # define arguments in table that will be used to feed into the machine learning
         parser = reqparse.RequestParser()

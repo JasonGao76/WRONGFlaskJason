@@ -8,6 +8,7 @@ from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# this code was written by a collaborator
 class CurrentChar(db.Model):
     __tablename__ = 'CurrentChar'
 
@@ -97,7 +98,6 @@ class CurrentChar(db.Model):
             "range": self._range,
             "movement": self.movement,
         }
-        
 
     # CRUD update
     # returns self

@@ -8,6 +8,7 @@ from __init__ import app, db
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# this code was mostly written by a collaborator, but I helped alter some of the arguments and added preset data for Grand Wizard
 class Classes(db.Model):
     __tablename__ = 'CharClasses'
 

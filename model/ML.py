@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float
 from __init__ import db
 
+# the below code is a combination of teacher code (from a lesson on machine learning using the Titanic dataset) and our adaption of that code to use in this project
 class ML(db.Model):
     __tablename__ = "ml"
 

@@ -14,6 +14,7 @@ currentchar_api = Blueprint('currentchar_api', __name__,
 # API docs https://flask-restful.readthedocs.io/en/latest/api.html
 api = Api(currentchar_api)
 
+# most of this (except for the data validation and processing of range / movement, which was mine) was done by a collaborator
 class CurrentCharAPI:        
     class _CRUD(Resource):  # define POST, GET, and PUT requests
         def post(self): # POST (create) 
@@ -73,12 +74,12 @@ class CurrentCharAPI:
             CurrentCharacter = CurrentChar.query.all() # get users
 
             # turn range and movement from boolean string to number (1 is true, 0 is false)
-            if range == "true":
+            if range == "true" or range == 1: # both added as the initial character creation uses true/false, but updates use 1/0
                 range = 1
             else:
                 range = 0
             
-            if movement == "true":
+            if movement == "true" or movement == 1:
                 movement = 1
             else:
                 movement = 0
