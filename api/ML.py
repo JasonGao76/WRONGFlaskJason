@@ -1,3 +1,4 @@
+# backend (Python) made on a GitHub repository using a teacher template according to their instructions: https://github.com/nighthawkcoders/flask_portfolio
 from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from __init__ import db

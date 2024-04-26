@@ -1,3 +1,4 @@
+# backend (Python) made on a GitHub repository using a teacher template according to their instructions: https://github.com/nighthawkcoders/flask_portfolio
 import json, jwt
 from flask import Blueprint, request, jsonify, current_app, Response
 from flask_restful import Api, Resource # used for REST API building
@@ -14,7 +15,7 @@ currentchar_api = Blueprint('currentchar_api', __name__,
 # API docs https://flask-restful.readthedocs.io/en/latest/api.html
 api = Api(currentchar_api)
 
-# most of this (except for the data validation and processing of range / movement, which was mine) was done by a collaborator
+# code below was done collaboratively, and I did the data validation and processing of range / movement
 class CurrentCharAPI:        
     class _CRUD(Resource):  # define POST, GET, and PUT requests
         def post(self): # POST (create) 

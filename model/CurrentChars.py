@@ -1,3 +1,4 @@
+# backend (Python) made on a GitHub repository using a teacher template according to their instructions: https://github.com/nighthawkcoders/flask_portfolio
 # database dependencies to support sqliteDB examples
 from random import randrange
 from datetime import date

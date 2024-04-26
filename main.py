@@ -1,3 +1,4 @@
+# backend (Python) made on a GitHub repository using a teacher template according to their instructions: https://github.com/nighthawkcoders/flask_portfolio 
 import threading
 
 # import "packages" from flask
